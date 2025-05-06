@@ -1,0 +1,26 @@
+# .venv
+.venv/
+autogluon_aqi_predictor/
+
+# Python
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+#bak
+bak
+
+logs
+*.log
+
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

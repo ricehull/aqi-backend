@@ -1,0 +1,69 @@
+--如果没有库就创建
+--创建数据库aqi_service
+CREATE DATABASE IF NOT EXISTS aqi_service
+USE aqi_service
+
+-- 如果表存在就停止创建
+-- 用户表
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    user_type ENUM('enterprise', 'individual') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 用户token表
+CREATE TABLE user_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- GSOD数据表
+CREATE TABLE gsod_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    SITE VARCHAR(32),
+    STATION VARCHAR(32),
+    DATE DATE,
+    NAME VARCHAR(128),
+    TEMP FLOAT,
+    DEWP FLOAT,
+    STP FLOAT,
+    VISIB FLOAT,
+    WDSP FLOAT,
+    MXSPD FLOAT,
+    MAX FLOAT,
+    MIN FLOAT,
+    PRCP FLOAT,
+    MONTH INT,
+    HANDLED BOOLEAN DEFAULT FALSE
+);
+
+-- AQI结果表
+CREATE TABLE aqi_result (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    SITE VARCHAR(32),
+    STATION VARCHAR(32),
+    DATE DATE,
+    NAME VARCHAR(128),
+    TEMP FLOAT,
+    DEWP FLOAT,
+    STP FLOAT,
+    VISIB FLOAT,
+    WDSP FLOAT,
+    MXSPD FLOAT,
+    MAX FLOAT,
+    MIN FLOAT,
+    PRCP FLOAT,
+    MONTH INT,
+    AQI FLOAT,
+    AQILEVEL INT,
+    HINTIMAGE MEDIUMBLOB
+);
+
